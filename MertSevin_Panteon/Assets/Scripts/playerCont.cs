@@ -14,6 +14,7 @@ public class playerCont : MonoBehaviour
     private Animator animator;
     private bool pldead;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,7 +26,6 @@ public class playerCont : MonoBehaviour
     void Update()
     {
         Movechar();
-
 
     }
     void Movechar()
@@ -52,4 +52,6 @@ public class playerCont : MonoBehaviour
             transform.Translate(xMovementB2, 0, 0);
         }
     }
+
 }
+
