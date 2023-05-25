@@ -25,8 +25,8 @@ public class forceArea : MonoBehaviour
         if (otherRb != null)
         {
             Vector3 force = Vector3.forward * forceMagnitude;
-            otherRb.AddForce(force, ForceMode.Force);
-
+            otherRb.AddForce(force, ForceMode.Impulse);
+            return;
         }
     }
 }
