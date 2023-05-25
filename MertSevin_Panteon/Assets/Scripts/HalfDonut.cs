@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class HalfDonut : MonoBehaviour
 {
-    public float startX = 0.12f;
-    public float endX = 0.1f;
+    public float startX;
+    public float endX;
     public float speed = 1f;
 
     private bool movingRight = true;
     private float targetX;
 
-    void Start()
+    private void Awake()
     {
         targetX = startX;
     }
 
-    void Update()
+    private void Update()
     {
-        float distanceToTargetX = Mathf.Abs(transform.position.x - targetX);
+        MoveObject();
+    }
+
+    private void MoveObject()
+    {
+        float currentX = transform.position.z;
+        float direction = movingRight ? 1f : -1f;
+        float distanceToTargetX = Mathf.Abs(currentX - targetX);
 
         if (distanceToTargetX < 0.01f)
         {
@@ -26,7 +33,8 @@ public class HalfDonut : MonoBehaviour
             targetX = movingRight ? endX : startX;
         }
 
-        float direction = movingRight ? 1f : -1f;
-        transform.position += new Vector3(0f, 0f, direction * speed * Time.deltaTime);
+        float step = speed * Time.deltaTime;
+        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, targetX);
+        transform.position = Vector3.MoveTowards(transform.position, newPosition, step);
     }
 }
