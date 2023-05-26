@@ -13,6 +13,7 @@ public class playerCont : MonoBehaviour
 
     public Animator animator;
     public bool pldead;
+    public bool stop;
 
     GameManager gm;
 
@@ -21,9 +22,11 @@ public class playerCont : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        stop = false;
         pldead = false;
         animator.SetBool("dead", pldead);
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Obstacle")
@@ -36,7 +39,7 @@ public class playerCont : MonoBehaviour
     }
     void Update()
     {
-        if (!pldead)
+        if (!pldead && !stop)
         {
             Movechar();
         }
@@ -67,6 +70,19 @@ public class playerCont : MonoBehaviour
         
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Coin")
+        {
+            gm.gold++;
+            gm.SaveGold();
+            Destroy(other.gameObject);
 
+        }
+        if (other.gameObject.tag == "Stop")
+        {
+            stop = true;
+        }
+    }
 }
 

@@ -9,8 +9,18 @@ public class GameManager : MonoBehaviour
     public bool isDead;
     public GameObject deadPanel;
 
+    public int gold;
+    public Text text;
+
+    private string goldKey = "Gold";
+
     playerCont pCtrl;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        gold = PlayerPrefs.GetInt(goldKey, 0);
+    }
     void Start()
     {
         pCtrl = FindObjectOfType<playerCont>();
@@ -25,21 +35,28 @@ public class GameManager : MonoBehaviour
         {
             Dead();
         }
+
+        Canvas();
+    }
+    public void Canvas()
+    {
+        text.text = gold.ToString();
     }
 
     public void Dead()
     {
-        Debug.Log("Ölüm Prosedürü");
         deadPanel.SetActive(true);
     }
     public void Restartbutton()
     {
 
-        //PlayerPrefs.SetInt(goldKey, gold);
-        //PlayerPrefs.SetInt(skullKey, killCount);
-
-        PlayerPrefs.Save();
+        SaveGold();
 
         SceneManager.LoadScene("SampleScene");
+    }
+    public void SaveGold()
+    {
+        PlayerPrefs.SetInt(goldKey, gold);
+        PlayerPrefs.Save();
     }
 }

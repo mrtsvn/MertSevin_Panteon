@@ -11,7 +11,7 @@ public class shiningObs : MonoBehaviour
     private bool movingRight = true;
     private float targetX;
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem particleSys;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class shiningObs : MonoBehaviour
 
     private void Start()
     {
-        particleSystem = GetComponent<ParticleSystem>();
+        particleSys = GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -55,7 +55,7 @@ public class shiningObs : MonoBehaviour
     public void ChangeColor()
     {
         Color randomColor = GetRandomColor();
-        var mainModule = particleSystem.main;
+        var mainModule = particleSys.main;
         mainModule.startColor = new ParticleSystem.MinMaxGradient(randomColor);
     }
 
